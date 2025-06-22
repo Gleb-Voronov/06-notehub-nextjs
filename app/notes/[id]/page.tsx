@@ -3,12 +3,14 @@ import { fetchNoteById } from '../../../lib/api';
 import NoteDetailsClient from './NoteDetails.client';
 import { notFound } from 'next/navigation';
 
-interface NoteDetailsPageProps {
-  params: { id: string };
-}
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>; // тип параметра – Promise
+}) {
+  const resolvedParams = await params; // розгортаємо проміс
+  const id = Number(resolvedParams.id);
 
-export default async function NoteDetailsPage({ params }: NoteDetailsPageProps) {
-  const id = Number(params.id);
   const queryClient = new QueryClient();
 
   try {
