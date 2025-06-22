@@ -20,6 +20,7 @@ export default function NotesClient() {
     queryKey: ['notes', debouncedSearchQuery, currentPage],
     queryFn: () => fetchNotes(debouncedSearchQuery || '', currentPage),
     placeholderData: keepPreviousData,
+    refetchOnMount: false, 
   });
 
   const handleSearch = (query: string) => {
@@ -43,10 +44,9 @@ export default function NotesClient() {
             totalPages={data.totalPages}
           />
         )}
-        <button className={css.submitButton} onClick={openModal}>
-          Create note +
-        </button>
+        <button className={css.submitButton} onClick={openModal}>Create note +</button>
       </header>
+
       {notes && notes.length > 0 && <NoteList notes={notes} />}
       {isModalOpen && <NoteModal onClose={closeModal} />}
     </div>

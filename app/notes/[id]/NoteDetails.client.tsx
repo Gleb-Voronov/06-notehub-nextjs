@@ -16,6 +16,7 @@ export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
   } = useQuery({
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
+    refetchOnMount: false, 
   });
 
   if (isLoading) return <p>Loading, please wait...</p>;
@@ -29,7 +30,7 @@ export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
           <button className={css.editBtn}>Edit note</button>
         </div>
         <p className={css.content}>{note.content}</p>
-        <p className={css.date}>Created date</p>
+        <p className={css.date}>Created: {new Date(note.createdAt).toLocaleString()}</p>
       </div>
     </div>
   );
