@@ -4,6 +4,8 @@ import type { Note } from '../types/note';
 const API_KEY = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 const API_URL = 'https://notehub-public.goit.study/api/notes';
 
+console.log('API_KEY:', API_KEY); // Додано для перевірки у Vercel-логах
+
 export interface NotesResponse {
   notes: Note[];
   totalPages: number;
