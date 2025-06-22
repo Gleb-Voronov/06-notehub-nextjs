@@ -3,7 +3,13 @@ import { fetchNoteById } from '../../../lib/api';
 import NoteDetailsClient from './NoteDetails.client';
 import { notFound } from 'next/navigation';
 
-export default async function Page({ params }: { params: { id: string } }) {
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+export default async function Page({ params }: Params) {
   const id = Number(params.id);
   const queryClient = new QueryClient();
 
