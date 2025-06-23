@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { fetchNotes } from '@/lib/api';
+import type { Note } from '@/types/note';
+
 import NoteList from '@/components/NoteList/NoteList';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import Pagination from '@/components/Pagination/Pagination';
 import NoteModal from '@/components/NoteModal/NoteModal';
-import type { Note } from '@/types/note';
-import css from '../../components/NoteForm/NoteForm.module.css'
 
 interface NotesClientProps {
   initialNotes: Note[];
@@ -47,6 +47,8 @@ export default function NotesClient({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const notes = data?.notes;
+
   return (
     <div>
       <header>
@@ -58,9 +60,10 @@ export default function NotesClient({
             totalPages={data.totalPages}
           />
         )}
-        <button  className={css.submitButton} onClick={openModal}>Create note +</button>
+        <button onClick={openModal}>Create note +</button>
       </header>
-      {data?.notes && data.notes.length > 0 && <NoteList notes={data.notes} />}
+
+      {notes && notes.length > 0 && <NoteList notes={notes} />}
       {isModalOpen && <NoteModal onClose={closeModal} />}
     </div>
   );
